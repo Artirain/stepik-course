@@ -1,0 +1,162 @@
+site_name: "Полное руководство по Claude Code"
+site_url: https://9qw.gitlab.9qw.ru/stepik-course/
+site_description: "Практический курс по Claude Code: от установки до продвинутых возможностей вайбкодинга"
+site_author: "9qw"
+
+repo_url: https://gitlab.9qw.ru/9qw/stepik-course
+repo_name: 9qw/stepik-course
+edit_uri: "-/edit/main/docs/"
+
+theme:
+  name: material
+  language: ru
+  custom_dir: overrides
+
+  palette:
+    - scheme: default
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Тёмная тема
+    - scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Светлая тема
+
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+  icon:
+    logo: material/robot-happy-outline
+    repo: fontawesome/brands/gitlab
+
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - toc.follow
+
+plugins:
+  - search:
+      lang: ru
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      permalink_title: "Ссылка на этот раздел"
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+      auto_title: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/gitlab
+      link: https://gitlab.9qw.ru/9qw/stepik-course
+  generator: false
+
+nav:
+  - Главная: index.md
+  - "Раздел 1: Основы и настройка":
+    - section1/index.md
+    - "Урок 1. Плюсы и особенности Claude Code": section1/01-claude-code-features.md
+    - "Урок 2. Claude Code vs Cursor": section1/02-claude-code-vs-cursor.md
+    - "Урок 3. Claude Code vs Codex CLI": section1/03-claude-code-vs-codex-cli.md
+    - "Урок 4. Pro и Max — сравнение цен": section1/04-pro-vs-max-pricing.md
+    - "Урок 5. Выбор между Opus, Sonnet и Haiku": section1/05-opus-sonnet-haiku.md
+    - "Урок 6. Установка на Mac": section1/06-install-mac.md
+    - "Урок 7. Установка на Windows": section1/07-install-windows.md
+    - "Урок 8. Pro-план vs API-оплата": section1/08-pro-plan-vs-api.md
+    - "Урок 9. Настройки permissions": section1/09-permissions-security.md
+    - "Урок 10. Первый сеанс": section1/10-first-session.md
+    - "Урок 11. Первое изменение кода": section1/11-first-code-change.md
+    - "Урок 12. Базовые команды": section1/12-basic-commands.md
+    - "Урок 13. Расширенный режим мышления": section1/13-extended-thinking.md
+    - "Урок 14. Выбор модели под задачу": section1/14-model-choice-for-tasks.md
+    - "Урок 15. Старт, завершение, возобновление": section1/15-session-management.md
+    - "Урок 16. Управление контекстом": section1/16-context-management.md
+    - "Урок 17. Перемотка диалога": section1/17-dialog-rewind.md
+    - "Урок 18. Правка UI по скриншоту": section1/18-ui-fix-by-screenshot.md
+  - "Раздел 2: Продвинутые возможности":
+    - section2/index.md
+    - "Урок 19. CLAUDE.md — что это?": section2/19-claude-md-intro.md
+    - "Урок 20. CLAUDE.md — синтаксис @": section2/20-claude-md-at-syntax.md
+    - "Урок 21. CLAUDE.md — размещение и приоритет": section2/21-claude-md-placement-priority.md
+    - "Урок 22. CLAUDE.md — модульные правила": section2/22-claude-md-modular-rules.md
+    - "Урок 23. Кастомные slash-команды": section2/23-custom-slash-commands.md
+    - "Урок 24. Аргументы через $ARGUMENTS": section2/24-commands-arguments.md
+    - "Урок 25. Несколько аргументов $1/$2/$3": section2/25-commands-multiple-args.md
+    - "Урок 26. Саб-агенты": section2/26-subagents-intro.md
+    - "Урок 27. Файл определения агента": section2/27-custom-agent-definition.md
+    - "Урок 28. Hooks — lifecycle-события": section2/28-hooks-intro.md
+    - "Урок 29. Настройка Hooks через /hooks": section2/29-hooks-configuration.md
+    - "Урок 30. Хук SessionStart": section2/30-hooks-session-start.md
+    - "Урок 31. Уведомления и логирование": section2/31-hooks-notifications-logging.md
+    - "Урок 32. PreToolUse и PostToolUse": section2/32-hooks-pre-post-tool-use.md
+    - "Урок 33. Коды завершения в Hooks": section2/33-hooks-exit-codes.md
+    - "Урок 34. Переменные окружения в Hooks": section2/34-hooks-env-variables.md
+    - "Урок 35. Matchers — wildcard и паттерны": section2/35-hooks-matchers-patterns.md
+    - "Урок 36. SubagentStop хук": section2/36-hooks-subagent-stop.md
+    - "Урок 37. Что такое MCP": section2/37-mcp-intro.md
+    - "Урок 38. Context7 MCP": section2/38-mcp-context7.md
+    - "Урок 39. Claude Code on the Web": section2/39-claude-code-web.md
+    - "Урок 40. Хедлесс-режим (опция -p)": section2/40-headless-mode.md
+    - "Урок 41. Skills в Claude Code": section2/41-skills-intro.md
+    - "Урок 42. SKILL.md и папка references": section2/42-skills-md-references.md
+    - "Урок 43. Skills vs саб-агенты": section2/43-skills-vs-subagents.md
+    - "Урок 44. Тестинг": section2/44-testing.md
+  - О курсе: about.md

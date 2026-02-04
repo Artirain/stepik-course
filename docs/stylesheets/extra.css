@@ -1,0 +1,136 @@
+/* ============================================================
+   Кастомные стили курса "Полное руководство по Claude Code"
+   ============================================================ */
+
+:root {
+  --md-primary-fg-color: #673ab7;
+  --md-primary-fg-color--light: #9575cd;
+  --md-primary-fg-color--dark: #4527a0;
+  --md-accent-fg-color: #ffab00;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #9575cd;
+  --md-accent-fg-color: #ffd740;
+}
+
+.md-typeset {
+  line-height: 1.75;
+}
+
+.md-typeset h1 {
+  font-weight: 700;
+  margin-bottom: 0.8em;
+}
+
+.md-typeset pre {
+  border-radius: 8px;
+}
+
+.md-typeset .admonition.info {
+  border-left-width: 4px;
+}
+
+.md-nav__link--active {
+  font-weight: 600;
+}
+
+.md-typeset a,
+.md-nav__link,
+.md-header-nav__button {
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* --- Квиз-виджет --- */
+.quiz-block {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 2px solid var(--md-primary-fg-color--light);
+  border-radius: 12px;
+  background: var(--md-code-bg-color);
+}
+
+.quiz-block .quiz-question {
+  font-weight: 600;
+  font-size: 1.05em;
+  margin-bottom: 1rem;
+}
+
+.quiz-block label {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin: 0.3rem 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.quiz-block label:hover {
+  background: rgba(103, 58, 183, 0.08);
+}
+
+[data-md-color-scheme="slate"] .quiz-block label:hover {
+  background: rgba(149, 117, 205, 0.12);
+}
+
+.quiz-block input[type="radio"],
+.quiz-block input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: var(--md-primary-fg-color);
+}
+
+.quiz-block .quiz-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  background: var(--md-primary-fg-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.quiz-block .quiz-btn:hover {
+  background: var(--md-primary-fg-color--dark);
+}
+
+.quiz-block .quiz-result {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.quiz-block .quiz-result.correct {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.quiz-block .quiz-result.incorrect {
+  background: #fbe9e7;
+  color: #c62828;
+}
+
+[data-md-color-scheme="slate"] .quiz-block .quiz-result.correct {
+  background: rgba(46, 125, 50, 0.15);
+  color: #81c784;
+}
+
+[data-md-color-scheme="slate"] .quiz-block .quiz-result.incorrect {
+  background: rgba(198, 40, 40, 0.15);
+  color: #ef9a9a;
+}
+
+/* Итоговый счётчик */
+.quiz-summary {
+  margin-top: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  background: var(--md-primary-fg-color);
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: 600;
+  text-align: center;
+}
