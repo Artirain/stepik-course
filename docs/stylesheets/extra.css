@@ -42,31 +42,19 @@
 }
 
 /* --- Таблица программы курса --- */
-.md-typeset__scrollwrap {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  max-width: 550px;
-}
-
 .md-typeset table {
-  margin-left: auto !important;
-  margin-right: auto !important;
+  width: 100%;
 }
 
 .md-typeset table th,
 .md-typeset table td {
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1rem;
 }
 
 .md-typeset table th:first-child,
 .md-typeset table td:first-child {
   width: 60px;
   text-align: center;
-}
-
-.md-typeset table th:last-child,
-.md-typeset table td:last-child {
-  min-width: 350px;
 }
 
 /* --- Квиз-виджет --- */
