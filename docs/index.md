@@ -82,7 +82,3 @@ description: "Практический курс по Claude Code для разр
 | 42 | [SKILL.md и папка references](section2/42-skills-md-references.md) |
 | 43 | [Skills vs саб-агенты](section2/43-skills-vs-subagents.md) |
 | 44 | [Тестинг](section2/44-testing.md) |
-
----
-
-**44 урока** для освоения Claude Code от основ до продвинутых возможностей.
