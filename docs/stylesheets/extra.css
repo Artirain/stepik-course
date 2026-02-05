@@ -21,6 +21,11 @@
 .md-typeset h1 {
   font-weight: 700;
   margin-bottom: 0.8em;
+  color: #000 !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  color: #fff !important;
 }
 
 .md-typeset pre {

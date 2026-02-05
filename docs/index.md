@@ -31,8 +31,8 @@ description: "Практический курс по Claude Code для разр
 
 ### Раздел 1: Основы и настройка
 
-| # | Урок |
-|---|------|
+| # | Название урока |
+|---|----------------|
 | 1 | [Плюсы и особенности Claude Code](section1/01-claude-code-features.md) |
 | 2 | [Claude Code vs Cursor](section1/02-claude-code-vs-cursor.md) |
 | 3 | [Claude Code vs Codex CLI](section1/03-claude-code-vs-codex-cli.md) |
@@ -54,8 +54,8 @@ description: "Практический курс по Claude Code для разр
 
 ### Раздел 2: Продвинутые возможности
 
-| # | Урок |
-|---|------|
+| # | Название урока |
+|---|----------------|
 | 19 | [CLAUDE.md — что это?](section2/19-claude-md-intro.md) |
 | 20 | [CLAUDE.md — синтаксис @](section2/20-claude-md-at-syntax.md) |
 | 21 | [CLAUDE.md — размещение и приоритет](section2/21-claude-md-placement-priority.md) |
