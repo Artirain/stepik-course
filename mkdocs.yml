@@ -3,9 +3,9 @@ site_url: https://artirain.github.io/stepik-course/
 site_description: "Практический курс по Claude Code: от установки до продвинутых возможностей вайбкодинга"
 site_author: "9qw"
 
-repo_url: https://gitlab.9qw.ru/9qw/stepik-course
-repo_name: 9qw/stepik-course
-edit_uri: "-/edit/main/docs/"
+repo_url: https://github.com/artirain/stepik-course
+repo_name: artirain/stepik-course
+edit_uri: "edit/main/docs/"
 
 theme:
   name: material
@@ -105,8 +105,8 @@ extra_javascript:
 
 extra:
   social:
-    - icon: fontawesome/brands/gitlab
-      link: https://gitlab.9qw.ru/9qw/stepik-course
+    - icon: fontawesome/brands/github
+      link: https://github.com/artirain/stepik-course
   generator: false
 
 nav:

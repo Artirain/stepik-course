@@ -41,6 +41,25 @@
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
+/* --- Таблица программы курса --- */
+.md-typeset table:not([class]) {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 700px;
+  width: 100%;
+}
+
+.md-typeset table:not([class]) th,
+.md-typeset table:not([class]) td {
+  padding: 0.75rem 1rem;
+}
+
+.md-typeset table:not([class]) th:first-child,
+.md-typeset table:not([class]) td:first-child {
+  width: 50px;
+  text-align: center;
+}
+
 /* --- Квиз-виджет --- */
 .quiz-block {
   margin: 2rem 0;
