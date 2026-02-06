@@ -87,12 +87,17 @@
   text-align: center;
 }
 
-.md-typeset table tr {
-  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+.md-typeset table {
+  border-collapse: collapse;
 }
 
-.md-typeset table tr:last-child {
-  border-bottom: none;
+.md-typeset table td,
+.md-typeset table th {
+  border-bottom: 1px solid var(--md-default-fg-color--lightest) !important;
+}
+
+.md-typeset table tr:last-child td {
+  border-bottom: none !important;
 }
 
 /* --- Квиз-виджет --- */
