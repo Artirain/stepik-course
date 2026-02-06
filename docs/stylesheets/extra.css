@@ -87,6 +87,14 @@
   text-align: center;
 }
 
+.md-typeset table tr {
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset table tr:last-child {
+  border-bottom: none;
+}
+
 /* --- Квиз-виджет --- */
 .quiz-block {
   margin: 2rem 0;
