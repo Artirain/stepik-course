@@ -30,6 +30,5 @@ jobs:
             --no-progress
             --accept 200,206,429
             --max-retries 2
-            --exclude-mail
             --exclude-path site
             "**/*.md"
