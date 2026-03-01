@@ -6,6 +6,11 @@ last_verified: "2026-03-01"
 
 # Notification и логирование через hooks
 
+!!! info "Что ты узнаешь"
+    - Как настроить уведомления через `Notification`
+    - Как вести аудит действий через `PostToolUse`
+    - Как извлекать данные из stdin JSON
+
 ## Введение
 
 `Notification` удобно использовать для сигналов пользователю, а `PostToolUse` — для журналирования действий.
@@ -74,6 +79,12 @@ hook_event="$(jq -r '.hook_event_name // "unknown"' <<<"$input")"
 printf '%s | %s | %s\n' "$(date '+%F %T')" "$hook_event" "$tool_name" \
   >> "$CLAUDE_PROJECT_DIR/.claude/logs/actions.log"
 ```
+
+## Практика
+
+1. Создай `notify.sh`, который пишет уведомления в файл `notifications.log`.
+2. Создай `posttool-log.sh`, который логирует все действия `Bash`, `Write` и `Edit`.
+3. Проверь, что после нескольких действий в сессии оба лога заполняются.
 
 ## Итоги
 

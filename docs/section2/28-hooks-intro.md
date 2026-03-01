@@ -25,15 +25,25 @@ Hooks — это автоматические команды, которые Cla
 
 По текущей документации поддерживаются:
 
-- `PreToolUse`
-- `PostToolUse`
-- `Notification`
-- `UserPromptSubmit`
-- `Stop`
-- `SubagentStop`
-- `PreCompact`
-- `SessionStart`
-- `SessionEnd`
+| Событие | Когда срабатывает |
+|---------|-------------------|
+| `SessionStart` | При запуске или возобновлении сессии |
+| `SessionEnd` | При завершении сессии |
+| `UserPromptSubmit` | При отправке пользовательского промпта |
+| `PreToolUse` | До вызова инструмента (может блокировать) |
+| `PostToolUse` | После успешного вызова инструмента |
+| `PostToolUseFailure` | После неудачного вызова инструмента |
+| `PermissionRequest` | Когда Claude запрашивает разрешение |
+| `Notification` | При уведомлениях пользователю |
+| `Stop` | При остановке агента |
+| `SubagentStart` | При запуске подагента |
+| `SubagentStop` | При завершении подагента |
+| `PreCompact` | Перед сжатием контекста |
+| `ConfigChange` | При изменении конфигурации |
+| `WorktreeCreate` | При создании git worktree |
+| `WorktreeRemove` | При удалении git worktree |
+| `TeammateIdle` | Когда агент-напарник освобождается (agent teams) |
+| `TaskCompleted` | Когда задача завершена (agent teams) |
 
 ## Корректная структура hooks
 

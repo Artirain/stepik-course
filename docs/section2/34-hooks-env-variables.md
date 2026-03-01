@@ -6,6 +6,11 @@ last_verified: "2026-03-01"
 
 # Данные hooks: stdin и переменные окружения
 
+!!! info "Что ты узнаешь"
+    - Какие данные hooks получают через stdin JSON
+    - Как использовать `CLAUDE_PROJECT_DIR` для переносимых путей
+    - Почему stdin — самый надёжный источник данных
+
 ## Введение
 
 Надёжный источник данных для hooks — JSON во `stdin`.
@@ -34,13 +39,35 @@ tool="$(jq -r '.tool_name // "n/a"' <<<"$input")"
 echo "event=$event tool=$tool"
 ```
 
-## CLAUDE_PROJECT_DIR
+## Переменные окружения
+
+### CLAUDE_PROJECT_DIR
 
 Используй `CLAUDE_PROJECT_DIR` для устойчивых путей к скриптам и логам:
 
 ```bash
 mkdir -p "$CLAUDE_PROJECT_DIR/.claude/logs"
 ```
+
+### CLAUDE_SESSION_ID
+
+Уникальный идентификатор текущей сессии. Полезен для группировки логов:
+
+```bash
+echo "session=$CLAUDE_SESSION_ID" >> "$CLAUDE_PROJECT_DIR/.claude/logs/actions.log"
+```
+
+## Что приходит в stdin по типу события
+
+| Событие | Ключевые поля stdin JSON |
+|---------|--------------------------|
+| `PreToolUse` / `PostToolUse` | `hook_event_name`, `tool_name`, `tool_input` |
+| `Notification` | `hook_event_name`, `message` |
+| `SessionStart` / `SessionEnd` | `hook_event_name` |
+| `Stop` | `hook_event_name`, `decision` |
+| `SubagentStop` | `hook_event_name`, `decision` |
+| `UserPromptSubmit` | `hook_event_name`, `prompt` |
+| `PreCompact` | `hook_event_name`, `context` |
 
 ## Практика
 

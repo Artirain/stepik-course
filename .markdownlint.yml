@@ -1,0 +1,14 @@
+# Правила markdownlint для MkDocs Material
+# https://github.com/DavidAnson/markdownlint
+
+# MD013 — длина строки
+# Русский прозаический текст регулярно превышает 80 символов
+MD013: false
+
+# MD025 — один H1 на документ
+# MkDocs Material берёт title из YAML front matter И мы ставим # H1 в теле
+MD025: false
+
+# MD034 — bare URLs
+# Используются в CLAUDE.md и примерах кода
+MD034: false
