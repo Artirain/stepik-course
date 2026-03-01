@@ -9,6 +9,14 @@ MD013: false
 # MkDocs Material берёт title из YAML front matter И мы ставим # H1 в теле
 MD025: false
 
+# MD024 — повторяющиеся заголовки
+# CHANGELOG использует формат Keep a Changelog с повторяющимися "Добавлено", "Исправлено"
+MD024: false
+
+# MD033 — inline HTML
+# Квизы реализованы как HTML-блоки (div, input, label, button) через md_in_html
+MD033: false
+
 # MD034 — bare URLs
 # Используются в CLAUDE.md и примерах кода
 MD034: false
