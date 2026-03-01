@@ -19,7 +19,7 @@ last_verified: "2026-03-01"
 
 !!! warning "Важно"
     Перед покупкой всегда сверяй условия в официальном источнике:
-    [Claude plan tiers](https://support.claude.com/en/articles/9267304-about-claude-s-plan-tiers).
+    [Claude plan tiers](https://www.anthropic.com/pricing).
 
 ## Что важно сравнивать
 

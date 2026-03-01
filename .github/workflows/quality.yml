@@ -31,4 +31,6 @@ jobs:
             --accept 200,206,429
             --max-retries 2
             --exclude-path site
+            --exclude 127.0.0.1
+            --exclude claude.ai/code
             "**/*.md"

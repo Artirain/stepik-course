@@ -37,8 +37,8 @@ description: "Краткий апдейт по ключевым изменени
 
 ## Официальные источники
 
-- Claude Code docs: <https://docs.anthropic.com/en/docs/claude-code/overview>
-- Hooks: <https://docs.anthropic.com/en/docs/claude-code/hooks>
-- MCP: <https://docs.anthropic.com/en/docs/claude-code/mcp>
-- Claude plans: <https://support.claude.com/en/articles/9267304-about-claude-s-plan-tiers>
+- Claude Code docs: <https://code.claude.com/docs/en/overview>
+- Hooks: <https://code.claude.com/docs/en/hooks>
+- MCP: <https://code.claude.com/docs/en/mcp>
+- Claude plans: <https://www.anthropic.com/pricing>
 - Anthropic API pricing: <https://www.anthropic.com/pricing#api>
