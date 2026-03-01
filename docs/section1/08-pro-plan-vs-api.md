@@ -66,10 +66,10 @@ source ~/.bashrc
 1. Проверяй официальный прайс перед расчётом: [Anthropic Pricing](https://www.anthropic.com/pricing#api)
 2. Считай по формуле:
 
-```text
-Стоимость = (input_tokens / 1_000_000) * input_rate
-         + (output_tokens / 1_000_000) * output_rate
-```
+    ```text
+    Стоимость = (input_tokens / 1_000_000) * input_rate
+             + (output_tokens / 1_000_000) * output_rate
+    ```
 
 3. Сверяй фактическое потребление по логам/метрикам, а не по ощущениям.
 
