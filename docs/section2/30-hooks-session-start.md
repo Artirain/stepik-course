@@ -1,130 +1,81 @@
 ---
 title: "Урок 30. Хук SessionStart"
-description: "Автоматизация инициализации через хук SessionStart: проверка зависимостей, git status, загрузка переменных"
+description: "Как использовать SessionStart для инициализации контекста и быстрых проверок проекта"
+last_verified: "2026-03-01"
 ---
 
-# Автоматизируем инициализацию через хук SessionStart
-
-!!! info "Что ты узнаешь"
-    - Что такое хук SessionStart и когда он срабатывает
-    - Практические примеры автоинициализации
-    - Как настроить и отладить
+# SessionStart: автоматическая инициализация сессии
 
 ## Введение
 
-SessionStart — хук, который срабатывает один раз при начале сессии Claude Code. Это идеальное место для автоматической инициализации: проверки окружения, загрузки статуса, подготовки рабочей среды.
+`SessionStart` срабатывает при старте новой сессии и при возобновлении существующей. Это хорошее место для быстрой диагностики проекта и полезного контекста.
 
-## Когда срабатывает
-
-```mermaid
-graph LR
-    A[claude запуск] --> B[SessionStart хук]
-    B --> C[Сессия начинается]
-    C --> D[Работа с Claude]
-```
-
-SessionStart выполняется **до** первого промпта. Его вывод (stdout) попадает в контекст — Claude Code увидит результат.
-
-## Настройка
+## Пример конфигурации
 
 ```json
 {
   "hooks": {
     "SessionStart": [
       {
-        "command": ".claude/hooks/init.sh",
-        "timeout": 10000
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }
 }
 ```
 
-## Примеры
-
-### Показать git status при старте
+## Пример скрипта
 
 ```bash
-#!/bin/bash
-# .claude/hooks/init.sh
+#!/usr/bin/env bash
+set -euo pipefail
 
-echo "=== Git Status ==="
-git status --short
+cd "$CLAUDE_PROJECT_DIR"
 
-echo "=== Текущая ветка ==="
-git branch --show-current
-
-echo "=== Последний коммит ==="
-git log --oneline -1
+echo "=== SessionStart ==="
+echo "Branch: $(git branch --show-current 2>/dev/null || echo n/a)"
+echo "Changed files: $(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')"
 ```
 
-### Проверка зависимостей
+Что скрипт печатает в stdout, Claude может учитывать как контекст.
 
-```bash
-#!/bin/bash
-# Проверяем, установлены ли зависимости
-if [ -f "package.json" ] && [ ! -d "node_modules" ]; then
-    echo "⚠️ node_modules отсутствует. Запусти npm install."
-fi
+## Советы
 
-if [ -f "requirements.txt" ] && [ ! -d ".venv" ]; then
-    echo "⚠️ Виртуальное окружение не найдено. Создай .venv."
-fi
-```
-
-### Загрузка TODO
-
-```bash
-#!/bin/bash
-# Показываем незавершённые задачи
-if [ -f "TODO.md" ]; then
-    echo "=== TODO ==="
-    grep -c "\\- \\[ \\]" TODO.md | xargs -I {} echo "Незавершённых задач: {}"
-fi
-```
-
-!!! tip "Совет"
-    Не делай SessionStart слишком долгим — он задерживает начало работы. Держи timeout < 10 секунд.
-
-## Практика
-
-1. Создай файл `.claude/hooks/init.sh`
-2. Добавь вывод `git status` и текущей ветки
-3. Настрой хук через `/hooks` → SessionStart
-4. Перезапусти Claude Code и проверь вывод
-
-## Итоги
-
-- SessionStart срабатывает один раз при старте сессии
-- Stdout хука попадает в контекст Claude
-- Полезно для git status, проверки зависимостей, TODO
-- Держи хук быстрым (< 10 секунд)
+- Делай `SessionStart` быстрым
+- Не добавляй в stdout шум
+- Для тяжёлых действий используй отдельные ручные команды
 
 ## Проверь себя
 
 <div class="quiz-block" data-quiz-id="u30-q1" data-answer="a">
-  <div class="quiz-question">Когда срабатывает хук SessionStart?</div>
-  <label><input type="radio" name="u30-q1" value="a"> Один раз при начале сессии</label>
-  <label><input type="radio" name="u30-q1" value="b"> Перед каждым промптом</label>
-  <label><input type="radio" name="u30-q1" value="c"> При завершении сессии</label>
+  <div class="quiz-question">Когда срабатывает SessionStart?</div>
+  <label><input type="radio" name="u30-q1" value="a"> При старте и возобновлении сессии</label>
+  <label><input type="radio" name="u30-q1" value="b"> Только при завершении сессии</label>
+  <label><input type="radio" name="u30-q1" value="c"> Только после каждого Write</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>
 
 <div class="quiz-block" data-quiz-id="u30-q2" data-answer="b">
-  <div class="quiz-question">Куда попадает stdout хука SessionStart?</div>
-  <label><input type="radio" name="u30-q2" value="a"> В лог-файл</label>
-  <label><input type="radio" name="u30-q2" value="b"> В контекст Claude Code</label>
-  <label><input type="radio" name="u30-q2" value="c"> На экран пользователя</label>
+  <div class="quiz-question">Где задаётся команда SessionStart в settings.json?</div>
+  <label><input type="radio" name="u30-q2" value="a"> hooks.PreToolUse</label>
+  <label><input type="radio" name="u30-q2" value="b"> hooks.SessionStart</label>
+  <label><input type="radio" name="u30-q2" value="c"> hooks.Startup</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>
 
 <div class="quiz-block" data-quiz-id="u30-q3" data-answer="c">
-  <div class="quiz-question">Почему SessionStart-хук должен быть быстрым?</div>
-  <label><input type="radio" name="u30-q3" value="a"> Иначе Claude Code вылетит</label>
-  <label><input type="radio" name="u30-q3" value="b"> Он работает в синхронном режиме и блокирует API</label>
-  <label><input type="radio" name="u30-q3" value="c"> Он задерживает начало работы</label>
+  <div class="quiz-question">Какой принцип важен для SessionStart?</div>
+  <label><input type="radio" name="u30-q3" value="a"> Делать как можно дольше и подробнее</label>
+  <label><input type="radio" name="u30-q3" value="b"> Никогда не использовать stdout</label>
+  <label><input type="radio" name="u30-q3" value="c"> Держать hook быстрым и полезным</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>

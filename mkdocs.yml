@@ -32,7 +32,7 @@ theme:
 
   icon:
     logo: material/robot-happy-outline
-    repo: fontawesome/brands/gitlab
+    repo: fontawesome/brands/github
 
   features:
     - navigation.instant
@@ -111,6 +111,7 @@ extra:
 
 nav:
   - Главная: index.md
+  - "Что нового в 2026": updates-2026.md
   - "Раздел 1: Основы и настройка":
     - section1/index.md
     - "Урок 1. Плюсы и особенности Claude Code": section1/01-claude-code-features.md
@@ -143,7 +144,7 @@ nav:
     - "Урок 26. Саб-агенты": section2/26-subagents-intro.md
     - "Урок 27. Файл определения агента": section2/27-custom-agent-definition.md
     - "Урок 28. Hooks — lifecycle-события": section2/28-hooks-intro.md
-    - "Урок 29. Настройка Hooks через /hooks": section2/29-hooks-configuration.md
+    - "Урок 29. Настройка Hooks": section2/29-hooks-configuration.md
     - "Урок 30. Хук SessionStart": section2/30-hooks-session-start.md
     - "Урок 31. Уведомления и логирование": section2/31-hooks-notifications-logging.md
     - "Урок 32. PreToolUse и PostToolUse": section2/32-hooks-pre-post-tool-use.md

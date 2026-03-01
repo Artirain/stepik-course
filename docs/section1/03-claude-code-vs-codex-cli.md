@@ -1,110 +1,96 @@
 ---
 title: "Урок 3. Claude Code vs Codex CLI"
-description: "Сравнение Claude Code и Codex CLI от OpenAI: два терминальных агента, их сильные стороны и различия"
+description: "Сравнение Claude Code и Codex CLI: где инструменты сходятся, а где отличаются подходом"
+last_verified: "2026-03-01"
 ---
 
 # Claude Code vs Codex CLI
 
 !!! info "Что ты узнаешь"
-    - Что такое Codex CLI и чем он похож на Claude Code
-    - Ключевые различия в экосистемах и возможностях
-    - Какой инструмент выбрать под свои задачи
+    - Что общего у Claude Code и Codex CLI сегодня
+    - В чём реальные различия по workflow
+    - Как выбрать инструмент под конкретный тип работы
 
 ## Введение
 
-Codex CLI — терминальный ИИ-агент от OpenAI, прямой конкурент Claude Code. Оба инструмента работают из командной строки, имеют доступ к файлам и могут выполнять команды. Но под капотом у них разные модели и разный набор возможностей.
+Оба инструмента — полноценные терминальные coding-агенты. Историческое сравнение «у одного есть X, у другого нет» быстро устаревает: обе платформы активно добавляют функции.
 
-## Общее между ними
+Поэтому важнее сравнивать не «галочки», а **операционный стиль работы**.
 
-Оба инструмента — терминальные ИИ-агенты:
+## Что общего
 
-- Работают в CLI, без привязки к конкретной IDE
-- Читают и пишут файлы
-- Запускают bash-команды
-- Работают с git
-- Поддерживают систему permissions
+- CLI-подход: работа из терминала
+- чтение/редактирование файлов
+- запуск команд
+- контроль разрешений
+- интеграция в автоматизацию и CI
+- расширяемость через дополнительные механизмы (MCP/правила/конфиги)
 
-## Ключевые различия
+## Где различаются на практике
 
 | Критерий | Claude Code | Codex CLI |
 |----------|-------------|-----------|
-| Компания | Anthropic | OpenAI |
-| Модели | Claude (Opus, Sonnet, Haiku) | GPT, o-series |
-| Hooks | Да (SessionStart, PreToolUse, PostToolUse и др.) | Ограниченная поддержка |
-| CLAUDE.md / правила | Да (CLAUDE.md + .claude/rules/) | Инструкции через конфиг |
-| Skills | Да | Нет |
-| MCP | Да | Нет |
-| Sub-agents | Да | Нет |
-| Slash-команды | Да (кастомные) | Базовые |
-| Headless-режим | Да (`-p`) | Да (аналогичный) |
-| Установка | `npm install -g @anthropic-ai/claude-code` | `npm install -g @openai/codex` |
+| Основная модельная экосистема | Claude | OpenAI GPT/o-series |
+| Центральный формат проектных правил | CLAUDE.md + rules/hooks | AGENTS.md + конфиг Codex |
+| Подход к автоматизации | hooks + headless + MCP + cloud workflows | CLI automation + approvals + MCP + навыки/инструкции |
+| Web/облачный сценарий | Claude Code on the Web + интеграции | Codex cloud tasks/PR reviews в экосистеме OpenAI |
+| Сильная сторона | Глубокая интеграция с экосистемой Claude | Плотная интеграция с экосистемой OpenAI |
 
-## Сильные стороны Claude Code
+## Практический выбор
 
-!!! tip "Claude Code выигрывает в:"
-    - **Расширяемость**: hooks, MCP, skills, sub-agents — целая экосистема
-    - **Проектные правила**: CLAUDE.md + модульные .claude/rules/
-    - **Кастомные команды**: свои slash-команды с аргументами
-    - **Модели Claude**: Opus особенно хорош для сложных задач
+**Выбирай Claude Code, если:**
 
-## Сильные стороны Codex CLI
+- у тебя уже рабочий процесс на Anthropic
+- важны текущие Claude-ориентированные паттерны (CLAUDE.md, hooks и т.д.)
+- команда уже стандартизировала процессы вокруг Claude Code
 
-!!! tip "Codex CLI выигрывает в:"
-    - **Простота**: минималистичный интерфейс, быстрый старт
-    - **Модели OpenAI**: если ты уже в экосистеме OpenAI
-    - **o-series модели**: хороши для reasoning-задач
+**Выбирай Codex CLI, если:**
 
-## Что выбрать
+- основной стек у тебя в OpenAI-экосистеме
+- ты строишь процессы на AGENTS.md/инфраструктуре Codex
+- важно упростить интеграцию с уже существующими OpenAI-пайплайнами
 
-Выбор зависит от твоих потребностей:
+## Важный вывод
 
-- **Claude Code** — если нужна глубокая автоматизация, расширяемость и продвинутые возможности
-- **Codex CLI** — если ты уже в экосистеме OpenAI и нужен простой терминальный агент
-
-В этом курсе мы сосредоточимся на Claude Code и его экосистеме.
+В 2026 это не выбор «сильный vs слабый», а выбор **экосистемы и операционной модели**.
 
 ## Практика
 
-Если ты уже пользовался Codex CLI или другими ИИ-инструментами, запиши:
-
-1. Что тебе нравилось в них?
-2. Чего не хватало?
-3. Какие задачи оставались нерешёнными?
-
-Эти наблюдения помогут оценить, насколько Claude Code закрывает твои потребности.
+1. Возьми одну и ту же задачу (например, фикс бага + тесты).
+2. Запусти её в обоих инструментах.
+3. Сравни не «качество одного ответа», а цикл: правки, проверки, стоимость, удобство контроля.
 
 ## Итоги
 
-- Claude Code и Codex CLI — оба терминальные ИИ-агенты
-- Claude Code имеет более развитую экосистему: hooks, MCP, skills, sub-agents
-- Codex CLI проще в освоении и привязан к экосистеме OpenAI
-- Выбор зависит от потребностей в автоматизации и предпочтений по моделям
+- Оба инструмента уже покрывают базовый набор возможностей coding-агента
+- Ключевая разница — экосистема, conventions и интеграции
+- Решение лучше принимать после короткого hands-on сравнения на своей задаче
 
 ## Проверь себя
 
 <div class="quiz-block" data-quiz-id="u03-q1" data-answer="b">
-  <div class="quiz-question">Кто разработал Codex CLI?</div>
-  <label><input type="radio" name="u03-q1" value="a"> Anthropic</label>
-  <label><input type="radio" name="u03-q1" value="b"> OpenAI</label>
-  <label><input type="radio" name="u03-q1" value="c"> Google</label>
+  <div class="quiz-question">Что сейчас обычно важнее при выборе между Claude Code и Codex CLI?</div>
+  <label><input type="radio" name="u03-q1" value="a"> Иконка инструмента</label>
+  <label><input type="radio" name="u03-q1" value="b"> Экосистема и рабочий процесс команды</label>
+  <label><input type="radio" name="u03-q1" value="c"> Количество звёзд на GitHub</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>
 
-<div class="quiz-block" data-quiz-id="u03-q2" data-answer="a">
-  <div class="quiz-question">Какой инструмент поддерживает MCP (Model Context Protocol)?</div>
-  <label><input type="radio" name="u03-q2" value="a"> Claude Code</label>
-  <label><input type="radio" name="u03-q2" value="b"> Codex CLI</label>
-  <label><input type="radio" name="u03-q2" value="c"> Оба</label>
+<div class="quiz-block" data-quiz-id="u03-q2" data-answer="c">
+  <div class="quiz-question">Как корректнее сравнивать инструменты?</div>
+  <label><input type="radio" name="u03-q2" value="a"> По одному скриншоту</label>
+  <label><input type="radio" name="u03-q2" value="b"> По чужим комментариям</label>
+  <label><input type="radio" name="u03-q2" value="c"> По полному рабочему циклу на одинаковой задаче</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>
 
-<div class="quiz-block" data-quiz-id="u03-q3" data-answer="c">
-  <div class="quiz-question">Что общего у Claude Code и Codex CLI?</div>
-  <label><input type="radio" name="u03-q3" value="a"> Оба используют модели Claude</label>
-  <label><input type="radio" name="u03-q3" value="b"> Оба работают только в VS Code</label>
-  <label><input type="radio" name="u03-q3" value="c"> Оба — терминальные агенты с доступом к файлам и bash</label>
+<div class="quiz-block" data-quiz-id="u03-q3" data-answer="a">
+  <div class="quiz-question">Верно ли, что в 2026 корректно считать один из этих инструментов «безнадёжно урезанным»?</div>
+  <label><input type="radio" name="u03-q3" value="a"> Нет, оба активно развиваются</label>
+  <label><input type="radio" name="u03-q3" value="b"> Да, всегда Codex CLI</label>
+  <label><input type="radio" name="u03-q3" value="c"> Да, всегда Claude Code</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>

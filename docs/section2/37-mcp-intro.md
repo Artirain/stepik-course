@@ -1,116 +1,102 @@
 ---
 title: "Урок 37. Что такое MCP"
-description: "Model Context Protocol — открытый протокол для подключения внешних инструментов и данных к Claude Code"
+description: "Model Context Protocol: как подключать внешние инструменты к Claude Code и где хранится конфиг"
+last_verified: "2026-03-01"
 ---
 
 # Что такое MCP
 
 !!! info "Что ты узнаешь"
-    - Что такое Model Context Protocol и зачем он нужен
-    - Архитектура: клиент, сервер, инструменты
-    - Как подключить MCP-сервер к Claude Code
+    - Что такое MCP и зачем он нужен
+    - Как подключать MCP-серверы
+    - Где хранится конфигурация в актуальной версии
 
 ## Введение
 
-MCP (Model Context Protocol) — открытый протокол от Anthropic для подключения внешних инструментов и источников данных к ИИ-ассистентам. Думай о нём как о USB для ИИ — стандартный интерфейс, через который можно подключить что угодно: базу данных, API, файловую систему, документацию.
+MCP (Model Context Protocol) — стандарт подключения внешних инструментов и данных к ИИ-агентам.
+
+Практически это означает: Claude Code может работать не только с локальными файлами, но и с внешними системами (документация, базы, API, GitHub и т.д.).
 
 ## Как это работает
 
 ```mermaid
 graph LR
-    A[Claude Code<br/>MCP-клиент] <--> B[MCP-сервер<br/>Context7]
-    A <--> C[MCP-сервер<br/>PostgreSQL]
-    A <--> D[MCP-сервер<br/>GitHub]
+    A[Claude Code<br/>MCP client] <--> B[Context7 MCP server]
+    A <--> C[GitHub MCP server]
+    A <--> D[PostgreSQL MCP server]
 ```
 
-- **Claude Code** — MCP-клиент, который отправляет запросы
-- **MCP-сервер** — предоставляет инструменты (tools) и ресурсы (resources)
-- **Протокол** — стандартный JSON-RPC для общения между ними
-
-## Что может MCP-сервер
-
-MCP-серверы предоставляют:
-
-- **Tools** — действия, которые Claude может выполнять (запрос к БД, вызов API)
-- **Resources** — данные, которые Claude может читать (документация, схемы)
-
-## Подключение MCP-сервера
+## Базовые команды
 
 ```bash
 # Добавить MCP-сервер
-claude mcp add имя-сервера -- команда запуска
+claude mcp add <name> -- <launch-command>
 
-# Пример: подключить файловый сервер
-claude mcp add filesystem -- npx -y @anthropic-ai/mcp-filesystem
-
-# Список подключённых серверов
+# Посмотреть список
 claude mcp list
 
 # Удалить сервер
-claude mcp remove имя-сервера
+claude mcp remove <name>
 ```
 
-Конфигурация хранится в `.claude/mcp.json`:
+## Где хранится конфиг
 
-```json
-{
-  "mcpServers": {
-    "filesystem": {
-      "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-filesystem", "/path/to/dir"]
-    }
-  }
-}
-```
+Актуально:
 
-## Популярные MCP-серверы
+- локальный/проектный конфиг: **`.mcp.json`**
+- пользовательский уровень: `~/.claude.json`
 
-| Сервер | Что делает |
-|--------|-----------|
-| Context7 | Актуальная документация библиотек |
-| Filesystem | Расширенная работа с файлами |
-| PostgreSQL | Запросы к PostgreSQL |
-| GitHub | Работа с issues, PR, репозиториями |
-| Puppeteer | Управление браузером |
+!!! note "Важно"
+    Во многих старых материалах встречается `.claude/mcp.json`.
+    Сейчас ориентируйся на `.mcp.json` и актуальную документацию по scope.
+
+## Scope (область действия)
+
+При добавлении MCP-сервера учитывай область:
+
+- local (текущая копия)
+- project (для проекта)
+- user (для всех проектов пользователя)
+
+Это важно для безопасности и переносимости конфигурации.
 
 ## Практика
 
-1. Выбери MCP-сервер из списка
-2. Подключи его: `claude mcp add ...`
-3. Запусти Claude Code и попробуй использовать новый инструмент
-4. Проверь `.claude/mcp.json`
+1. Добавь тестовый MCP-сервер.
+2. Проверь, где записался конфиг.
+3. Проверь `claude mcp list`.
 
 ## Итоги
 
-- MCP — стандартный протокол для подключения внешних инструментов к Claude Code
-- Архитектура: Claude Code (клиент) ↔ MCP-серверы
-- Подключение: `claude mcp add имя -- команда`
-- Конфигурация в `.claude/mcp.json`
+- MCP даёт Claude Code доступ к внешним инструментам
+- Подключение идёт через `claude mcp add`
+- Актуальный проектный конфиг — `.mcp.json`
+- Scope нужно выбирать осознанно
 
 ## Проверь себя
 
 <div class="quiz-block" data-quiz-id="u37-q1" data-answer="c">
   <div class="quiz-question">Что такое MCP?</div>
-  <label><input type="radio" name="u37-q1" value="a"> Формат файлов конфигурации</label>
-  <label><input type="radio" name="u37-q1" value="b"> Тип модели Claude</label>
-  <label><input type="radio" name="u37-q1" value="c"> Протокол для подключения внешних инструментов к ИИ</label>
+  <label><input type="radio" name="u37-q1" value="a"> Тип модели</label>
+  <label><input type="radio" name="u37-q1" value="b"> Менеджер зависимостей</label>
+  <label><input type="radio" name="u37-q1" value="c"> Протокол подключения внешних инструментов к агенту</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>
 
-<div class="quiz-block" data-quiz-id="u37-q2" data-answer="a">
-  <div class="quiz-question">Где хранится конфигурация MCP-серверов?</div>
+<div class="quiz-block" data-quiz-id="u37-q2" data-answer="b">
+  <div class="quiz-question">Какой файл сейчас используется как проектный MCP-конфиг?</div>
   <label><input type="radio" name="u37-q2" value="a"> .claude/mcp.json</label>
-  <label><input type="radio" name="u37-q2" value="b"> .claude/settings.json</label>
-  <label><input type="radio" name="u37-q2" value="c"> mcp.config.js</label>
+  <label><input type="radio" name="u37-q2" value="b"> .mcp.json</label>
+  <label><input type="radio" name="u37-q2" value="c"> mcp.config.ts</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>
 
-<div class="quiz-block" data-quiz-id="u37-q3" data-answer="b">
-  <div class="quiz-question">Какая команда подключает MCP-сервер?</div>
-  <label><input type="radio" name="u37-q3" value="a"> claude install mcp</label>
-  <label><input type="radio" name="u37-q3" value="b"> claude mcp add</label>
+<div class="quiz-block" data-quiz-id="u37-q3" data-answer="a">
+  <div class="quiz-question">Какая команда добавляет MCP-сервер?</div>
+  <label><input type="radio" name="u37-q3" value="a"> claude mcp add</label>
+  <label><input type="radio" name="u37-q3" value="b"> claude mcp install</label>
   <label><input type="radio" name="u37-q3" value="c"> /mcp connect</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>

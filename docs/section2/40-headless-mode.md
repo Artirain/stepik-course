@@ -1,6 +1,7 @@
 ---
 title: "Урок 40. Headless-режим Claude Code"
 description: "Как запускать Claude Code без интерактивного режима с помощью флага -p для автоматизации и CI/CD"
+last_verified: "2026-03-01"
 ---
 
 # Headless-режим — Claude Code без интерактива
@@ -69,7 +70,7 @@ claude -p "Перечисли все TODO в проекте" --output-format jso
 Позволяет указать конкретную модель:
 
 ```bash
-claude -p "Проанализируй код" --model claude-sonnet-4-20250514
+claude -p "Проанализируй код" --model <model-id>
 ```
 
 ### `--allowedTools`
@@ -160,7 +161,7 @@ claude -p "Замени все var на const/let во всех JS-файлах"
 ```bash
 claude -p "Найди и исправь все TODO в проекте" \
   --output-format json \
-  --model claude-sonnet-4-20250514 \
+  --model <model-id> \
   --max-turns 10
 ```
 

@@ -9,6 +9,9 @@ description: "Практический курс по Claude Code для разр
 
 ---
 
+!!! info "Актуальность материалов"
+    Для тем, которые быстро меняются (цены, лимиты, команды, web-возможности), смотри страницу [Что нового в 2026](updates-2026.md).
+
 ## Чему ты научишься
 
 - Быстро ставить Claude Code на macOS и Windows и доводить до рабочего состояния
@@ -66,7 +69,7 @@ description: "Практический курс по Claude Code для разр
 | 26 | [Саб-агенты](section2/26-subagents-intro.md) |
 | 27 | [Файл определения агента](section2/27-custom-agent-definition.md) |
 | 28 | [Hooks — lifecycle-события](section2/28-hooks-intro.md) |
-| 29 | [Настройка Hooks через /hooks](section2/29-hooks-configuration.md) |
+| 29 | [Настройка Hooks](section2/29-hooks-configuration.md) |
 | 30 | [Хук SessionStart](section2/30-hooks-session-start.md) |
 | 31 | [Уведомления и логирование](section2/31-hooks-notifications-logging.md) |
 | 32 | [PreToolUse и PostToolUse](section2/32-hooks-pre-post-tool-use.md) |

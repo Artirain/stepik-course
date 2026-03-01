@@ -21,6 +21,7 @@ function checkQuiz(btn) {
 
   var quizId = block.getAttribute('data-quiz-id');
   var correctRaw = block.getAttribute('data-answer');
+  var explanation = block.getAttribute('data-explanation');
   var resultDiv = block.querySelector('.quiz-result');
   if (!resultDiv) return;
 
@@ -51,6 +52,10 @@ function checkQuiz(btn) {
     resultDiv.textContent = 'Неправильно. Попробуй ещё раз!';
   }
 
+  if (explanation) {
+    resultDiv.textContent += ' ' + explanation;
+  }
+
   // Сохраняем результат в localStorage
   if (quizId) {
     try {
@@ -64,7 +69,15 @@ function checkQuiz(btn) {
 
 function updateSummary() {
   var summaryEl = document.querySelector('.quiz-summary');
-  if (!summaryEl) return;
+  if (!summaryEl) {
+    var blocksExist = document.querySelector('.quiz-block');
+    if (!blocksExist) return;
+    summaryEl = document.createElement('div');
+    summaryEl.className = 'quiz-summary';
+    var container = document.querySelector('.md-typeset');
+    if (!container) return;
+    container.appendChild(summaryEl);
+  }
 
   var blocks = document.querySelectorAll('.quiz-block');
   var total = blocks.length;
@@ -77,7 +90,8 @@ function updateSummary() {
     }
   });
 
-  summaryEl.textContent = 'Результат: ' + correct + ' из ' + total + ' правильно';
+  var percent = total > 0 ? Math.round((correct / total) * 100) : 0;
+  summaryEl.textContent = 'Результат: ' + correct + ' из ' + total + ' правильно (' + percent + '%)';
 }
 
 // Восстанавливаем состояние при загрузке (SPA-навигация MkDocs Material)

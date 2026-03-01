@@ -5,9 +5,9 @@
 ## Технологии
 
 - **SSG:** MkDocs + Material for MkDocs
-- **Квизы:** Кастомный JS-виджет
-- **Хостинг:** GitLab Pages (gitlab.9qw.ru)
-- **CI/CD:** GitLab CI
+- **Квизы:** кастомный JS-виджет
+- **Основной хостинг:** GitHub Pages
+- **CI/CD:** GitHub Actions (основной) + GitLab CI (зеркальный)
 
 ## Локальная разработка
 
@@ -19,6 +19,8 @@
 ### Установка
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -28,7 +30,7 @@ pip install -r requirements.txt
 mkdocs serve
 ```
 
-Сайт будет доступен по адресу http://127.0.0.1:8000
+Сайт будет доступен по адресу `http://127.0.0.1:8000`.
 
 ### Сборка
 
@@ -45,8 +47,9 @@ mkdocs build --strict
 
 ## Деплой
 
-Деплой происходит автоматически при пуше в ветку `main` через GitLab CI.
-Конфигурация — в `.gitlab-ci.yml`.
+- GitHub Pages: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
+- Quality checks: [`.github/workflows/quality.yml`](.github/workflows/quality.yml)
+- GitLab Pages (зеркальный пайплайн): [`.gitlab-ci.yml`](.gitlab-ci.yml)
 
 ## Лицензия
 

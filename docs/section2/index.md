@@ -19,7 +19,7 @@ description: "CLAUDE.md, slash-команды, саб-агенты, Hooks, MCP, 
 26. [Саб-агенты](26-subagents-intro.md)
 27. [Файл определения агента](27-custom-agent-definition.md)
 28. [Hooks — lifecycle-события](28-hooks-intro.md)
-29. [Настройка Hooks через /hooks](29-hooks-configuration.md)
+29. [Настройка Hooks](29-hooks-configuration.md)
 30. [Хук SessionStart](30-hooks-session-start.md)
 31. [Уведомления и логирование](31-hooks-notifications-logging.md)
 32. [PreToolUse и PostToolUse](32-hooks-pre-post-tool-use.md)

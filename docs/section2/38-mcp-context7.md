@@ -1,25 +1,19 @@
 ---
 title: "Урок 38. Context7 MCP"
-description: "Подключение Context7 MCP для актуальной документации библиотек в Claude Code"
+description: "Как подключить Context7 MCP для актуальной документации библиотек"
+last_verified: "2026-03-01"
 ---
 
 # Первый шаг с Context7 MCP
 
 !!! info "Что ты узнаешь"
-    - Что такое Context7 и зачем он нужен
-    - Как установить и настроить
-    - Как использовать в работе
+    - Зачем нужен Context7
+    - Как подключить сервер
+    - Как убедиться, что конфиг корректный
 
 ## Введение
 
-Context7 — MCP-сервер, который предоставляет Claude Code актуальную документацию библиотек и фреймворков. Вместо того чтобы полагаться на знания модели (которые могут устареть), Claude Code обращается к Context7 и получает свежие docs.
-
-## Зачем это нужно
-
-Модели Claude обучены на данных до определённой даты. Если библиотека обновилась, модель может не знать о новых API. Context7 решает эту проблему, подключая живую документацию.
-
-!!! example "Пример"
-    Спрашиваешь про React 19 Server Components — без Context7 Claude может дать устаревший ответ. С Context7 — получит актуальную документацию.
+Context7 даёт доступ к актуальной документации библиотек. Это полезно, когда модельные знания могут отставать от последних релизов.
 
 ## Установка
 
@@ -27,7 +21,13 @@ Context7 — MCP-сервер, который предоставляет Claude 
 claude mcp add context7 -- npx -y @upstash/context7-mcp@latest
 ```
 
-Это добавит Context7 в `.claude/mcp.json`:
+После добавления проверь конфиг (`.mcp.json`) и список серверов:
+
+```bash
+claude mcp list
+```
+
+## Пример `.mcp.json`
 
 ```json
 {
@@ -42,62 +42,51 @@ claude mcp add context7 -- npx -y @upstash/context7-mcp@latest
 
 ## Использование
 
-После подключения Claude Code автоматически обращается к Context7, когда нужна документация. Просто задавай вопросы как обычно:
+После подключения задавай вопросы о свежих API как обычно — Claude Code сам решит, когда задействовать Context7.
 
-```
-> Как использовать новый useActionState хук в React 19?
-> Покажи пример Server Actions в Next.js 15
-> Какой синтаксис у новых маршрутов в Express 5?
-```
+Примеры:
 
-Claude Code сам решит, когда обратиться к Context7 за актуальными данными.
-
-## Другие полезные MCP-серверы
-
-| Сервер | Установка |
-|--------|-----------|
-| GitHub | `claude mcp add github -- npx -y @anthropic-ai/mcp-github` |
-| Puppeteer | `claude mcp add puppeteer -- npx -y @anthropic-ai/mcp-puppeteer` |
+- "Покажи актуальный пример Server Actions в Next.js"
+- "Какой сейчас рекомендуемый синтаксис в React 19 для ..."
 
 ## Практика
 
-1. Установи Context7: `claude mcp add context7 -- npx -y @upstash/context7-mcp@latest`
-2. Запусти Claude Code
-3. Спроси о новой фиче в любой библиотеке
-4. Сравни ответ с ответом без Context7
+1. Подключи Context7.
+2. Проверь `claude mcp list`.
+3. Задай вопрос про новую фичу фреймворка.
+4. Сравни ответ до и после подключения.
 
 ## Итоги
 
-- Context7 предоставляет актуальную документацию библиотек
-- Установка: одна команда `claude mcp add`
-- Claude Code сам обращается к Context7 при необходимости
-- Решает проблему устаревших знаний модели
+- Context7 помогает получать более актуальные ответы по документации
+- Подключается одной командой через `claude mcp add`
+- Конфиг хранится в `.mcp.json`
 
 ## Проверь себя
 
 <div class="quiz-block" data-quiz-id="u38-q1" data-answer="b">
-  <div class="quiz-question">Какую проблему решает Context7?</div>
-  <label><input type="radio" name="u38-q1" value="a"> Ускоряет работу Claude Code</label>
-  <label><input type="radio" name="u38-q1" value="b"> Предоставляет актуальную документацию вместо устаревших знаний</label>
-  <label><input type="radio" name="u38-q1" value="c"> Добавляет новые модели</label>
+  <div class="quiz-question">Какую задачу решает Context7?</div>
+  <label><input type="radio" name="u38-q1" value="a"> Ускоряет интернет</label>
+  <label><input type="radio" name="u38-q1" value="b"> Даёт доступ к актуальной документации</label>
+  <label><input type="radio" name="u38-q1" value="c"> Заменяет модель Claude</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>
 
 <div class="quiz-block" data-quiz-id="u38-q2" data-answer="a">
-  <div class="quiz-question">Нужно ли вручную вызывать Context7 при каждом вопросе?</div>
-  <label><input type="radio" name="u38-q2" value="a"> Нет, Claude Code обращается автоматически</label>
-  <label><input type="radio" name="u38-q2" value="b"> Да, нужно писать /context7</label>
-  <label><input type="radio" name="u38-q2" value="c"> Да, нужно указывать флаг --context7</label>
+  <div class="quiz-question">Где обычно проверяют, что MCP-сервер подключён?</div>
+  <label><input type="radio" name="u38-q2" value="a"> claude mcp list</label>
+  <label><input type="radio" name="u38-q2" value="b"> npm ls</label>
+  <label><input type="radio" name="u38-q2" value="c"> /status mcp</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>
 
 <div class="quiz-block" data-quiz-id="u38-q3" data-answer="c">
-  <div class="quiz-question">Как установить Context7?</div>
-  <label><input type="radio" name="u38-q3" value="a"> npm install context7</label>
-  <label><input type="radio" name="u38-q3" value="b"> /mcp install context7</label>
-  <label><input type="radio" name="u38-q3" value="c"> claude mcp add context7 -- npx -y @upstash/context7-mcp@latest</label>
+  <div class="quiz-question">Какой файл нужно проверять после добавления MCP-сервера в проект?</div>
+  <label><input type="radio" name="u38-q3" value="a"> .claude/mcp.json</label>
+  <label><input type="radio" name="u38-q3" value="b"> mcp.yaml</label>
+  <label><input type="radio" name="u38-q3" value="c"> .mcp.json</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>

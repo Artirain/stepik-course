@@ -1,141 +1,104 @@
 ---
 title: "Урок 44. Тестинг"
-description: "Выстраивание проверяемого воркфлоу: тестинг результатов Claude Code, интеграция с CI и автоматизация"
+description: "Проверяемый workflow с Claude Code: тесты, hooks и CI"
+last_verified: "2026-03-01"
 ---
 
-# Тестинг — выстраивание проверяемого воркфлоу
-
-!!! info "Что ты узнаешь"
-    - Зачем тестировать результаты работы ИИ
-    - Как интегрировать тесты в рабочий процесс с Claude Code
-    - Автоматизация тестирования через hooks и headless-режим
+# Тестинг: обязательный слой над AI-правками
 
 ## Введение
 
-ИИ может ошибаться. Даже отлично написанный промпт не гарантирует 100% корректный код. Тестинг — твоя страховка. Выстраивание проверяемого воркфлоу превращает Claude Code из «генератора кода» в надёжный инструмент.
+Claude Code ускоряет разработку, но не заменяет проверку качества. Надёжный workflow: кодогенерация -> автоматические проверки -> ручная валидация.
 
-## Стратегии тестирования
+## Базовый цикл
 
-### 1. Запуск тестов после каждого изменения
+1. Сформулируй задачу с явным требованием тестов.
+2. Запусти тесты и линтер.
+3. Исправь падения.
+4. Повтори до зелёного состояния.
 
-Самый простой подход — попроси Claude Code запустить тесты:
-
-```
-Напиши функцию сортировки и запусти тесты.
-```
-
-Claude Code напишет код, запустит `npm test` или `pytest`, увидит результат и исправит ошибки.
-
-### 2. Промпты для тестирования
-
-```
-# Сгенерировать тесты
-Напиши unit-тесты для функции calculateTotal в src/utils.ts
-
-# Запустить и исправить
-Запусти тесты. Если что-то упало — исправь код и запусти снова.
-
-# Полный цикл
-Добавь функцию валидации, напиши тесты и убедись, что все проходят.
-```
-
-### 3. Автотестирование через hooks
-
-Настрой PostToolUse хук, чтобы тесты запускались автоматически после записи файлов:
+## Автотесты через PostToolUse
 
 ```json
 {
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Write(*.test.ts)",
-        "command": "npm test -- --bail 2>&1 | tail -20"
+        "matcher": "Write(*.test.ts)|Write(*.spec.ts)|Write(*.py)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/run-tests.sh",
+            "timeout": 120
+          }
+        ]
       }
     ]
   }
 }
 ```
 
-### 4. Headless-режим для CI/CD
-
-Интегрируй Claude Code в CI-пайплайн:
+`run-tests.sh`:
 
 ```bash
-# В GitHub Actions / GitLab CI
-claude -p "Запусти все тесты и выведи результат" --output-format json
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$CLAUDE_PROJECT_DIR"
+
+if [[ -f package.json ]]; then
+  npm test -- --bail
+elif [[ -f pyproject.toml || -f requirements.txt ]]; then
+  pytest -q
+fi
 ```
 
-## Чеклист верификации
+## Headless для CI
 
-!!! tip "Проверяй после каждого изменения"
-    - [ ] Код компилируется без ошибок
-    - [ ] Тесты проходят
-    - [ ] Линтер не ругается
-    - [ ] Типы корректны (TypeScript)
-    - [ ] Логика соответствует задаче (ручная проверка)
+```bash
+claude -p "Проверь diff, предложи риски и список тестов" --output-format json
+```
 
-## Интеграция с фреймворками
+Для CI лучше использовать `--output-format json`, чтобы парсить результат машинно.
 
-=== "JavaScript / TypeScript"
+## Мини-чеклист
 
-    ```bash
-    # Jest
-    npm test
-
-    # Vitest
-    npx vitest run
-    ```
-
-=== "Python"
-
-    ```bash
-    # pytest
-    pytest -v
-
-    # unittest
-    python -m pytest
-    ```
-
-## Практика
-
-1. Попроси Claude Code написать функцию и тесты для неё
-2. Запусти тесты — убедись, что проходят
-3. Настрой PostToolUse хук для автозапуска тестов
-4. Попробуй headless-режим: `claude -p "Запусти тесты"`
+- [ ] сборка проходит
+- [ ] тесты зелёные
+- [ ] линтер зелёный
+- [ ] нет регрессий в критичных сценариях
 
 ## Итоги
 
-- Всегда тестируй результаты Claude Code
-- Промпты «напиши и запусти тесты» — базовая стратегия
-- PostToolUse хук — автоматический запуск тестов после записи
-- Headless-режим (`-p`) — для интеграции с CI/CD
-- Чеклист: компиляция → тесты → линтер → типы → логика
+- AI-правки без тестов = высокий риск
+- hooks позволяют автоматически запускать проверки
+- headless-режим хорошо ложится в CI-пайплайны
 
 ## Проверь себя
 
 <div class="quiz-block" data-quiz-id="u44-q1" data-answer="c">
-  <div class="quiz-question">Зачем тестировать результаты Claude Code?</div>
-  <label><input type="radio" name="u44-q1" value="a"> Это требование лицензии</label>
-  <label><input type="radio" name="u44-q1" value="b"> Claude Code сам не запускает тесты</label>
-  <label><input type="radio" name="u44-q1" value="c"> ИИ может ошибаться, тесты — страховка</label>
+  <div class="quiz-question">Почему тесты обязательны при работе с Claude Code?</div>
+  <label><input type="radio" name="u44-q1" value="a"> Потому что так требует npm</label>
+  <label><input type="radio" name="u44-q1" value="b"> Потому что иначе не работает /hooks</label>
+  <label><input type="radio" name="u44-q1" value="c"> Потому что AI-изменения нужно проверять на регрессии</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>
 
 <div class="quiz-block" data-quiz-id="u44-q2" data-answer="a">
-  <div class="quiz-question">Какой хук подходит для автозапуска тестов после записи файла?</div>
+  <div class="quiz-question">Какой hook обычно используют для запуска тестов после изменений?</div>
   <label><input type="radio" name="u44-q2" value="a"> PostToolUse</label>
-  <label><input type="radio" name="u44-q2" value="b"> SessionStart</label>
-  <label><input type="radio" name="u44-q2" value="c"> PreToolUse</label>
+  <label><input type="radio" name="u44-q2" value="b"> SessionEnd</label>
+  <label><input type="radio" name="u44-q2" value="c"> PreCompact</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>
 
 <div class="quiz-block" data-quiz-id="u44-q3" data-answer="b">
-  <div class="quiz-question">Как запустить Claude Code в CI/CD-пайплайне?</div>
-  <label><input type="radio" name="u44-q3" value="a"> claude --ci</label>
-  <label><input type="radio" name="u44-q3" value="b"> claude -p "промпт"</label>
-  <label><input type="radio" name="u44-q3" value="c"> claude run tests</label>
+  <div class="quiz-question">Какой формат вывода удобен для CI при запуске `claude -p`?</div>
+  <label><input type="radio" name="u44-q3" value="a"> markdown</label>
+  <label><input type="radio" name="u44-q3" value="b"> json</label>
+  <label><input type="radio" name="u44-q3" value="c"> xml</label>
   <button class="quiz-btn" onclick="checkQuiz(this)">Проверить</button>
   <div class="quiz-result"></div>
 </div>

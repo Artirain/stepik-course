@@ -1,6 +1,7 @@
 ---
 title: "Урок 35. Matchers: wildcard и паттерны"
 description: "Как использовать matchers для точного выбора инструментов: wildcard *, конкретные имена, паттерны с аргументами вроде Bash(npm *) и Write(*.py)"
+last_verified: "2026-03-01"
 ---
 
 # Matchers: wildcard и паттерны
