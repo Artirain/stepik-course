@@ -1,6 +1,7 @@
 ---
 title: "Урок 5. Выбор между Opus, Sonnet и Haiku"
 description: "Как выбрать модель Claude для разных задач: Opus для сложного, Sonnet для ежедневной работы, Haiku для быстрых правок"
+last_verified: "2026-03-01"
 ---
 
 # Выбор между Opus, Sonnet и Haiku

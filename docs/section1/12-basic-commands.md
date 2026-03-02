@@ -1,6 +1,7 @@
 ---
 title: "Урок 12. Базовые команды"
 description: "Полный справочник slash-команд Claude Code: /help, /model, /compact, /clear, /cost, /doctor и другие"
+last_verified: "2026-03-01"
 ---
 
 # Базовые команды Claude Code

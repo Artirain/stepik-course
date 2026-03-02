@@ -72,6 +72,7 @@ claude mcp remove <name>
 - Подключение идёт через `claude mcp add`
 - Актуальный проектный конфиг — `.mcp.json`
 - Scope нужно выбирать осознанно
+- Практический пример: [Урок 38 — Context7 MCP](38-mcp-context7.md)
 
 ## Проверь себя
 

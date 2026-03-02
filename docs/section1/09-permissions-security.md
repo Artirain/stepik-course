@@ -1,6 +1,7 @@
 ---
 title: "Урок 9. Настройки permissions"
 description: "Как настроить permissions в Claude Code для безопасной работы: режимы, файл настроек, рекомендации"
+last_verified: "2026-03-01"
 ---
 
 # Настройки permissions для безопасности

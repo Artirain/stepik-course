@@ -50,10 +50,33 @@ echo "Changed files: $(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')"
 
 Что скрипт печатает в stdout, Claude может учитывать как контекст.
 
+## Расширенный пример
+
+Скрипт, который проверяет состояние проекта и Docker:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$CLAUDE_PROJECT_DIR"
+
+echo "=== Project: $(basename "$PWD") ==="
+echo "Branch: $(git branch --show-current 2>/dev/null || echo 'n/a')"
+echo "Uncommitted: $(git status --porcelain 2>/dev/null | wc -l | tr -d ' ') files"
+echo "Node: $(node -v 2>/dev/null || echo 'not installed')"
+echo "Docker: $(docker info --format '{{.ContainersRunning}} running' 2>/dev/null || echo 'not available')"
+```
+
+## Доступные переменные окружения
+
+В `SessionStart` доступны переменные, описанные в [Уроке 34](34-hooks-env-variables.md):
+
+- `CLAUDE_PROJECT_DIR` — корень проекта
+- `CLAUDE_SESSION_ID` — ID текущей сессии
+
 ## Советы
 
-- Делай `SessionStart` быстрым
-- Не добавляй в stdout шум
+- Делай `SessionStart` быстрым (таймаут обычно 10 сек)
+- Не добавляй в stdout шум — только полезный контекст
 - Для тяжёлых действий используй отдельные ручные команды
 
 ## Практика

@@ -15,6 +15,17 @@ last_verified: "2026-03-01"
 
 Hooks — это автоматические команды, которые Claude Code выполняет на событиях жизненного цикла сессии и инструментов.
 
+```mermaid
+graph LR
+    A[SessionStart] --> B[UserPromptSubmit]
+    B --> C[PreToolUse]
+    C -->|разрешён| D[Инструмент]
+    C -->|заблокирован| B
+    D --> E[PostToolUse]
+    E --> B
+    B -->|/exit| F[Stop / SessionEnd]
+```
+
 Они нужны для трёх задач:
 
 - безопасность (блокировка рискованных действий)
@@ -72,6 +83,13 @@ Hooks — это автоматические команды, которые Cla
 - Входные данные hook получает через `stdin` в JSON
 - Команды запускаются параллельно для всех совпавших правил
 - `timeout` задаётся в **секундах** внутри конкретной `command`-hook записи
+
+## Что дальше
+
+- [Урок 29](29-hooks-configuration.md) — конфигурация hooks в `settings.json`
+- [Урок 34](34-hooks-env-variables.md) — переменные окружения для хуков
+- [Урок 35](35-hooks-matchers-patterns.md) — паттерны и матчеры
+- [Урок 40](40-headless-mode.md) — hooks в headless-режиме (CI/CD)
 
 ## Практика
 

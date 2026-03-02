@@ -1,6 +1,7 @@
 ---
 title: "Урок 2. Claude Code vs Cursor"
 description: "Сравнение Claude Code и Cursor: терминальный агент против ИИ-IDE, когда что выбирать"
+last_verified: "2026-03-01"
 ---
 
 # Claude Code vs Cursor
