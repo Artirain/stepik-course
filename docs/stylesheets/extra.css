@@ -20,6 +20,7 @@
 
 .md-typeset h1 {
   font-weight: 700;
+  letter-spacing: -0.02em;
   margin-bottom: 0.8em;
   color: #000 !important;
 }
@@ -28,8 +29,14 @@
   color: #fff !important;
 }
 
+.md-typeset h2 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: 2.2em;
+}
+
 .md-typeset pre {
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .md-typeset .admonition.info {
@@ -192,4 +199,132 @@
   font-size: 1.1em;
   font-weight: 600;
   text-align: center;
+}
+
+/* ============================================================
+   Шапка сайта
+   ============================================================ */
+.md-header {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================================
+   Hero-секция главной страницы
+   ============================================================ */
+.course-hero {
+  position: relative;
+  margin: 1rem 0 3.5rem;
+  padding: 3.5rem 1.5rem 3rem;
+  text-align: center;
+  border-radius: 20px;
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(103, 58, 183, 0.14), transparent 60%),
+    radial-gradient(90% 90% at 100% 100%, rgba(255, 171, 0, 0.10), transparent 55%);
+  overflow: hidden;
+}
+
+.course-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1px solid rgba(103, 58, 183, 0.16);
+  pointer-events: none;
+}
+
+.course-hero__badge {
+  display: inline-block;
+  margin-bottom: 1.4rem;
+  padding: 0.4rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--md-primary-fg-color);
+  background: rgba(103, 58, 183, 0.10);
+  border: 1px solid rgba(103, 58, 183, 0.22);
+  border-radius: 999px;
+}
+
+.course-hero h1 {
+  margin: 0 auto 1rem;
+  max-width: 16ch;
+  font-size: 2.7rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(120deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.course-hero > p {
+  margin: 0 auto 2rem;
+  max-width: 52ch;
+  font-size: 1.05rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.course-hero .md-button {
+  margin: 0.3rem 0.4rem;
+}
+
+[data-md-color-scheme="slate"] .course-hero {
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(149, 117, 205, 0.20), transparent 60%),
+    radial-gradient(90% 90% at 100% 100%, rgba(255, 215, 64, 0.08), transparent 55%);
+}
+
+[data-md-color-scheme="slate"] .course-hero::before {
+  border-color: rgba(149, 117, 205, 0.22);
+}
+
+@media screen and (max-width: 44.9375em) {
+  .course-hero {
+    padding: 2.5rem 1rem 2.25rem;
+  }
+  .course-hero h1 {
+    font-size: 2rem;
+  }
+}
+
+/* ============================================================
+   Карточки (grid cards)
+   ============================================================ */
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid.cards > :is(ul, ol) > li {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 14px;
+  padding: 1.4rem 1.4rem 1.2rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.md-typeset .grid.cards > ul > li:hover,
+.md-typeset .grid.cards > :is(ul, ol) > li:hover {
+  transform: translateY(-4px);
+  border-color: var(--md-primary-fg-color--light);
+  box-shadow: 0 12px 28px rgba(103, 58, 183, 0.14);
+}
+
+.md-typeset .grid.cards .lg.middle:first-child {
+  color: var(--md-primary-fg-color);
+}
+
+.md-typeset .grid.cards .lg svg {
+  height: 1.9rem;
+  width: 1.9rem;
+}
+
+/* --- Финальный призыв --- */
+.course-cta {
+  text-align: center;
+  margin: 3rem 0 1rem;
+  padding: 2.5rem 1.5rem;
+  border-radius: 18px;
+  background: var(--md-code-bg-color);
+}
+
+.course-cta h3 {
+  margin-top: 0;
 }
